@@ -30,6 +30,7 @@ body{
     100%{transform:translateY(-110vh);opacity:0}
 }
 
+/* Card */
 .card{
     background:white;
     padding:40px 30px;
@@ -50,6 +51,7 @@ h1{
     height:160px;
 }
 
+/* YES button */
 #yes{
     padding:22px 55px;
     font-size:30px;
@@ -67,6 +69,7 @@ h1{
     100%{transform:scale(1)}
 }
 
+/* NO button */
 #no{
     position:absolute;
     left:55%;
@@ -96,7 +99,7 @@ h1{
 </div>
 
 <script>
-// floating hearts
+// Floating hearts generator
 setInterval(()=>{
     const h=document.createElement("div");
     h.className="heart";
@@ -107,18 +110,28 @@ setInterval(()=>{
     setTimeout(()=>h.remove(),6000);
 },400);
 
-const noBtn=document.getElementById("no");
-const box=document.querySelector(".buttons");
+const noBtn = document.getElementById("no");
+const box = document.querySelector(".buttons");
 
-noBtn.addEventListener("mouseenter",()=>{
-    const bw=box.clientWidth-noBtn.offsetWidth;
-    const bh=box.clientHeight-noBtn.offsetHeight;
-    noBtn.style.left=Math.random()*bw+"px";
-    noBtn.style.top=Math.random()*bh+"px";
+function moveNo(){
+    const bw = box.clientWidth - noBtn.offsetWidth;
+    const bh = box.clientHeight - noBtn.offsetHeight;
+    noBtn.style.left = Math.random() * bw + "px";
+    noBtn.style.top  = Math.random() * bh + "px";
+}
+
+/* IMPORTANT FIX */
+/* Desktop: click se pehle hi bhaag jaaye */
+noBtn.addEventListener("mousedown", moveNo);
+
+/* Mobile: touch hote hi bhaag jaaye */
+noBtn.addEventListener("touchstart", function(e){
+    e.preventDefault();
+    moveNo();
 });
 
-// YES CLICK
-document.getElementById("yes").onclick=()=>{
+/* YES click */
+document.getElementById("yes").onclick = () => {
     document.getElementById("card").innerHTML = `
         <h1 style="font-size:22px;color:#ff2f68;line-height:1.5;">
         Yayyy!! 😍💘<br>
